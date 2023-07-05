@@ -1,0 +1,23 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Montserrat, sans-serif;
+}
+
+.filterButton {
+  font-weight: 600;
+  padding: 3px 10px;
+  margin: 2px;
+  outline: none;
+  border: 1px solid #c3c3c3;
+  transition: 1s;
+}
+
+.filterButton:hover {
+  background-color: #c4c4c4;
+}

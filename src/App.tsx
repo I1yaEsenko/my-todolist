@@ -1,26 +1,67 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react';
+import './App.module.css';
+import {Todolist} from "./components/todolist";
+import {v1} from "uuid";
+
+export type TasksType = {
+    id: string
+    title: string
+    isDone: boolean
+}
+
+export type FilterType = 'All' | 'Active' | 'Completed'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    //local state for our data
+    let [tasks, setTasks] = useState<Array<TasksType>>([
+            {id: v1(), title: "HTML&CSS", isDone: true},
+            {id: v1(), title: "JS", isDone: true},
+            {id: v1(), title: "ReactJS", isDone: false},
+            {id: v1(), title: "Hello world", isDone: true},
+            {id: v1(), title: "I am Happy", isDone: false},
+            {id: v1(), title: "Yo", isDone: false},
+        ]
+    )
+    //local state for filter
+    let [filter, setFilter] = useState<FilterType>('All')
+    const deleteTask = (idTask: string) => {
+        setTasks(tasks.filter(t => t.id !== idTask))
+    }
+
+    let tasksForTodolist = tasks
+    // let filterTasks = () => {
+    //     tasksForTodolist = filter === 'Active' ? tasks.filter(t => t.isDone) :
+    //         filter === 'Completed' ? tasks.filter(t => !t.isDone) :
+    //             tasksForTodolist
+    // }
+
+    if (filter === 'Active') {
+        tasksForTodolist = tasks.filter(t => !t.isDone)
+    }
+
+    if (filter === 'Completed') {
+        tasksForTodolist = tasks.filter(t => t.isDone)
+    }
+
+    let changeFilter = (value: FilterType) => {
+        setFilter(value)
+    }
+
+    let addTask = (newTitle:string) => {
+        let newTask = [{id:v1(), title: newTitle, isDone: false}, ...tasks]
+        setTasks(newTask)
+    }
+
+    return (
+        <div className="App">
+            <Todolist title={'What to learn'}
+                      tasks={tasksForTodolist}
+                      deleteTask={deleteTask}
+                      changeFilter={changeFilter}
+                      addTask={addTask}/>
+        </div>
+    );
 }
 
 export default App;
