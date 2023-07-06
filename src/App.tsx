@@ -36,6 +36,8 @@ function App() {
     //             tasksForTodolist
     // }
 
+
+    // фильтрация тасок
     if (filter === 'Active') {
         tasksForTodolist = tasks.filter(t => !t.isDone)
     }
@@ -43,7 +45,6 @@ function App() {
     if (filter === 'Completed') {
         tasksForTodolist = tasks.filter(t => t.isDone)
     }
-
     let changeFilter = (value: FilterType) => {
         setFilter(value)
     }

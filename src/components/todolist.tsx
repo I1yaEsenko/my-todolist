@@ -1,57 +1,72 @@
 import React, {ChangeEvent, useState} from 'react';
 import {FilterType, TasksType} from "../App";
 import t from '../App.module.css'
+
 export type TodolistPropsType = {
     title: string
     tasks: Array<TasksType>
     deleteTask: (idTask: string) => void
-    changeFilter: (value:FilterType) => void
-    addTask: (newTitle:string) => void
+    changeFilter: (value: FilterType) => void
+    addTask: (newTitle: string) => void
 }
 
 export const Todolist = (props: TodolistPropsType) => {
 
     let [title, setTitle] = useState<string>('')
 
-    // удаление таски
-    const deleteOnclickHandler = () => {
-    }
-    let titleOnChangeHandler = (e:ChangeEvent<HTMLInputElement>) =>{
+
+    let titleOnChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
     }
 
+
     let addChangeHandler = () => {
-        {props.addTask(title)}
+        {
+            props.addTask(title)
+        }
         setTitle('')
     }
 
     return (
-        <div>
+        <div className={t.todolist}>
             <h3>{props.title}</h3>
 
-            <div>
-                <input value={title} onChange={titleOnChangeHandler}/>
-                <button onClick={addChangeHandler}>+</button>
+            <div className={t.todolist__inputField}>
+                <input className={t.inputField__input} value={title} onChange={titleOnChangeHandler}/>
+                <button className={t.inputField__button} onClick={addChangeHandler}>+</button>
             </div>
 
-            <ul>
+            <ul className={t.todolist__list}>
                 {props.tasks.map(
-                    (task) => <li key={task.id}><input type="checkbox" checked={task.isDone}/> <span>{task.title}</span>
-                        <button onClick={() => {
+                    (task) => {
+
+                        const onDeleteHandler = () => {
                             props.deleteTask(task.id)
-                        }}>x
-                        </button>
-                    </li>
+                        }
+
+                        return (
+                            <>
+                                <li key={task.id} className={t.todolist__link}>
+                                    <input type="checkbox" checked={task.isDone}/><span>{task.title}</span>
+                                    <button onClick={onDeleteHandler} className={t.todolist__link__button}>x</button>
+                                </li>
+                            </>
+                        )
+
+                    }
                 )}
             </ul>
             <div>
-                <button className={t.filterButton} onClick={() => {props.changeFilter('All')
+                <button className={t.filterButton} onClick={() => {
+                    props.changeFilter('All')
                 }}>All
                 </button>
-                <button className={t.filterButton} onClick={() => {props.changeFilter('Active')
+                <button className={t.filterButton} onClick={() => {
+                    props.changeFilter('Active')
                 }}>Active
                 </button>
-                <button className={t.filterButton} onClick={() => {props.changeFilter('Completed')
+                <button className={t.filterButton} onClick={() => {
+                    props.changeFilter('Completed')
                 }}>Completed
                 </button>
             </div>
