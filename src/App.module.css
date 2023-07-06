@@ -12,6 +12,11 @@
     padding: 10px;
 }
 
+.todolist__error{
+    height: 20px;
+    color: red;
+}
+
 .todolist__inputField{
     width: 200px;
     margin-bottom: 5px;

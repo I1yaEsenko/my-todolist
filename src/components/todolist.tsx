@@ -15,22 +15,20 @@ export const Todolist = (props: TodolistPropsType) => {
 
     let [title, setTitle] = useState<string>('')
 
-    let [error, setError] = useState<string>('Ошибка. Заполните поле')
+    let [error, setError] = useState<string>('')
 
     let titleOnChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-
         setTitle(e.currentTarget.value)
+        setError('')
     }
 
 
     let addChangeHandler = () => {
-        // if (title.trim() === ' ') {
-        //     error &&
-        //     setError('')
-        // }
-        {
-            props.addTask(title)
+        if (title.trim() === '') {
+          setError('Заполните поле ввода!')
+            return
         }
+        props.addTask(title.trim())
         setTitle('')
     }
 
@@ -45,7 +43,9 @@ export const Todolist = (props: TodolistPropsType) => {
                 <input className={t.inputField__input} value={title} onChange={titleOnChangeHandler}/>
                 <button className={t.inputField__button} onClick={addChangeHandler}>+</button>
             </div>
-
+            <div className={t.todolist__error}>
+                {error && <div className={t.todolist__error_text}>{error}</div>}
+            </div>
             <ul className={t.todolist__list}>
                 {props.tasks.map(
                     (task) => {
