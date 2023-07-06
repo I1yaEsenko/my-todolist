@@ -8,24 +8,34 @@ export type TodolistPropsType = {
     deleteTask: (idTask: string) => void
     changeFilter: (value: FilterType) => void
     addTask: (newTitle: string) => void
+    taskChecked: (idTask: string, isDone: boolean) => void
 }
 
 export const Todolist = (props: TodolistPropsType) => {
 
     let [title, setTitle] = useState<string>('')
 
+    let [error, setError] = useState<string>('Ошибка. Заполните поле')
 
     let titleOnChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+
         setTitle(e.currentTarget.value)
     }
 
 
     let addChangeHandler = () => {
+        // if (title.trim() === ' ') {
+        //     error &&
+        //     setError('')
+        // }
         {
             props.addTask(title)
         }
         setTitle('')
     }
+
+    // checkbox
+
 
     return (
         <div className={t.todolist}>
@@ -43,11 +53,16 @@ export const Todolist = (props: TodolistPropsType) => {
                         const onDeleteHandler = () => {
                             props.deleteTask(task.id)
                         }
+                        // забираем данные в App , id и состояние isDone
+                        let onCheckedHandler = (e: ChangeEvent<HTMLInputElement>) => {
+                            props.taskChecked(task.id, e.currentTarget.checked)
+                        }
 
                         return (
                             <>
                                 <li key={task.id} className={t.todolist__link}>
-                                    <input type="checkbox" checked={task.isDone}/><span>{task.title}</span>
+                                    <input className={t.todolist__checkbox} type="checkbox" onChange={onCheckedHandler}
+                                           checked={task.isDone}/><span>{task.title}</span>
                                     <button onClick={onDeleteHandler} className={t.todolist__link__button}>x</button>
                                 </li>
                             </>

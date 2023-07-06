@@ -46,7 +46,9 @@
     margin-bottom: 5px;
     position: relative;
 }
-
+.todolist__checkbox{
+    margin-right: 5px;
+}
 .todolist__link__button {
     position: absolute;
     top: 50%;

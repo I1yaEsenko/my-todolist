@@ -49,9 +49,13 @@ function App() {
         setFilter(value)
     }
 
-    let addTask = (newTitle:string) => {
-        let newTask = [{id:v1(), title: newTitle, isDone: false}, ...tasks]
+    let addTask = (newTitle: string) => {
+        let newTask = [{id: v1(), title: newTitle, isDone: false}, ...tasks]
         setTasks(newTask)
+    }
+
+    const taskChecked = (idTask: string, isDone: boolean) => {
+        setTasks(tasks.map( t => t.id === idTask ? {...t, isDone: isDone}: t))
     }
 
     return (
@@ -60,7 +64,8 @@ function App() {
                       tasks={tasksForTodolist}
                       deleteTask={deleteTask}
                       changeFilter={changeFilter}
-                      addTask={addTask}/>
+                      addTask={addTask}
+                      taskChecked={taskChecked}/>
         </div>
     );
 }
