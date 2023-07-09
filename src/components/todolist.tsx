@@ -1,6 +1,7 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {FilterType, TasksType} from "../App";
 import t from '../App.module.css'
+import Checkbox from "./checkbox";
 
 export type TodolistPropsType = {
     title: string
@@ -22,26 +23,33 @@ export const Todolist = (props: TodolistPropsType) => {
         setError('')
     }
 
-
-    let addChangeHandler = () => {
+    let addTaskHandler = () => {
         if (title.trim() === '') {
-          setError('Заполните поле ввода!')
+            setError('Заполните поле ввода!')
             return
         }
         props.addTask(title.trim())
         setTitle('')
     }
 
-    // checkbox
+    const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+        setError('')
+        if (e.keyCode === 13) {
+            addTaskHandler()
+        }
+    }
 
-
+    const onCheckedHandler = (tId:string, isDone:boolean) => {
+        props.taskChecked(tId, isDone)
+    }
     return (
         <div className={t.todolist}>
             <h3>{props.title}</h3>
 
             <div className={t.todolist__inputField}>
-                <input className={t.inputField__input} value={title} onChange={titleOnChangeHandler}/>
-                <button className={t.inputField__button} onClick={addChangeHandler}>+</button>
+                <input className={t.inputField__input} value={title} onKeyDown={onKeyPressHandler}
+                       onChange={titleOnChangeHandler}/>
+                <button className={t.inputField__button} onClick={addTaskHandler}>+</button>
             </div>
             <div className={t.todolist__error}>
                 {error && <div className={t.todolist__error_text}>{error}</div>}
@@ -54,15 +62,15 @@ export const Todolist = (props: TodolistPropsType) => {
                             props.deleteTask(task.id)
                         }
                         // забираем данные в App , id и состояние isDone
-                        let onCheckedHandler = (e: ChangeEvent<HTMLInputElement>) => {
-                            props.taskChecked(task.id, e.currentTarget.checked)
-                        }
+
 
                         return (
                             <>
                                 <li key={task.id} className={t.todolist__link}>
-                                    <input className={t.todolist__checkbox} type="checkbox" onChange={onCheckedHandler}
-                                           checked={task.isDone}/><span>{task.title}</span>
+                                    <Checkbox isDone={task.isDone} callback={(isDone) => {
+                                        onCheckedHandler(task.id, isDone)
+                                    }}/>
+                                    <span>{task.title}</span>
                                     <button onClick={onDeleteHandler} className={t.todolist__link__button}>x</button>
                                 </li>
                             </>

@@ -9,8 +9,11 @@
 }
 
 .todolist {
+
     padding: 10px;
 }
+
+
 
 .todolist__error{
     height: 20px;
@@ -43,6 +46,7 @@
 }
 
 .todolist__list {
+    margin-bottom: 20px;
 
 }
 
