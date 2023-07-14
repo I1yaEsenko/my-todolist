@@ -3,6 +3,7 @@ import {FilterType, TasksType} from "../App";
 import t from '../App.module.css'
 import Checkbox from "./checkbox";
 import {AddItemForm} from "./AddItemForm";
+import {EditableSpan} from "./EditableSpan";
 
 export type TodolistPropsType = {
 
@@ -89,7 +90,7 @@ export const Todolist = (props: TodolistPropsType) => {
                                     <Checkbox isDone={task.isDone} callback={(isDone) => {
                                         onCheckedHandler(task.id, isDone)
                                     }}/>
-                                    <span>{task.title}</span>
+                                    <EditableSpan title={task.title} onChange={addTitleTask}/>
                                     <button onClick={onDeleteHandler} className={t.todolist__link__button}>x</button>
                                 </li>
                             </>
