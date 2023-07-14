@@ -8,12 +8,18 @@
     font-family: Montserrat, sans-serif;
 }
 
-.todolist {
+.app__wrapper {
+    display: flex;
+    flex-direction: row;
+}
 
+.todolist {
     padding: 10px;
 }
 
-
+.todolist_add{
+    margin: 10px;
+}
 
 .todolist__error{
     height: 20px;
@@ -54,6 +60,7 @@
     width: 200px;
     margin-bottom: 5px;
     position: relative;
+    list-style: none;
 }
 .todolist__checkbox{
     margin-right: 5px;
@@ -81,4 +88,11 @@
 
 .filterButton:hover {
     background-color: #c4c4c4;
+}
+
+{/* кнопка добавления тудулиста*/}
+.add__button {
+    font-weight: 600;
+    padding: 3px 10px;
+    margin-left: 10px;
 }

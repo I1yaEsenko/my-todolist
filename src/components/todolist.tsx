@@ -2,68 +2,85 @@ import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {FilterType, TasksType} from "../App";
 import t from '../App.module.css'
 import Checkbox from "./checkbox";
+import {AddItemForm} from "./AddItemForm";
 
 export type TodolistPropsType = {
+
+    todolistId: string
     title: string
     tasks: Array<TasksType>
-    deleteTask: (idTask: string) => void
-    changeFilter: (value: FilterType) => void
-    addTask: (newTitle: string) => void
-    taskChecked: (idTask: string, isDone: boolean) => void
+    deleteTask: (todolistId:string, taskId: string) => void
+    changeFilter: (todolistId:string, value: FilterType) => void
+    addTask: (todolistId:string, newTitle: string) => void
+    taskChecked: (todolistId:string, idTask: string, isDone: boolean) => void
+    filter: string
 }
 
 export const Todolist = (props: TodolistPropsType) => {
 
-    let [title, setTitle] = useState<string>('')
+    // let [title, setTitle] = useState<string>('')
+    //
+    // let [error, setError] = useState<string>('')
+    //
+    // let titleOnChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    //     setTitle(e.currentTarget.value)
+    //     setError('')
+    // }
 
-    let [error, setError] = useState<string>('')
+    // let addTaskHandler = () => {
+    //     if (title.trim() === '') {
+    //         setError('Заполните поле ввода!')
+    //         return
+    //     }
+    //     props.addTask(props.todolistId, title.trim())
+    //     setTitle('')
+    // }
 
-    let titleOnChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.currentTarget.value)
-        setError('')
+    // const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+    //     setError('')
+    //     if (e.keyCode === 13) {
+    //         addTaskHandler()
+    //     }
+    // }
+    //Забираем id и состояние такси в основную компоненту
+    const onCheckedHandler = (tId: string, isDone: boolean) => {
+        props.taskChecked(props.todolistId, tId, isDone)
     }
-
-    let addTaskHandler = () => {
-        if (title.trim() === '') {
-            setError('Заполните поле ввода!')
-            return
-        }
-        props.addTask(title.trim())
-        setTitle('')
+    // Фильтрация по выполнению тасок
+    const allOnClickHandler = () => {
+        props.changeFilter(props.todolistId,'All')
     }
-
-    const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        setError('')
-        if (e.keyCode === 13) {
-            addTaskHandler()
-        }
+    const activeOnClickHandler = () => {
+        props.changeFilter(props.todolistId,'Active')
     }
-
-    const onCheckedHandler = (tId:string, isDone:boolean) => {
-        props.taskChecked(tId, isDone)
+    const completedOnClickHandler = () => {
+        props.changeFilter(props.todolistId,'Completed')
     }
     return (
         <div className={t.todolist}>
             <h3>{props.title}</h3>
 
-            <div className={t.todolist__inputField}>
-                <input className={t.inputField__input} value={title} onKeyDown={onKeyPressHandler}
-                       onChange={titleOnChangeHandler}/>
-                <button className={t.inputField__button} onClick={addTaskHandler}>+</button>
-            </div>
-            <div className={t.todolist__error}>
-                {error && <div className={t.todolist__error_text}>{error}</div>}
-            </div>
+            {/*<div className={t.todolist__inputField}>*/}
+            {/*    <input className={t.inputField__input} value={title} onKeyDown={onKeyPressHandler}*/}
+            {/*           onChange={titleOnChangeHandler}/>*/}
+            {/*    <button className={t.inputField__button} onClick={addTaskHandler}>+</button>*/}
+            {/*</div>*/}
+            {/*<div className={t.todolist__error}>*/}
+            {/*    {error && <div className={t.todolist__error_text}>{error}</div>}*/}
+            {/*</div>*/}
+
+
+            <AddItemForm todolistId={props.todolistId} addItem={props.addTask}/>
+
+
             <ul className={t.todolist__list}>
                 {props.tasks.map(
                     (task) => {
 
                         const onDeleteHandler = () => {
-                            props.deleteTask(task.id)
+                            props.deleteTask(props.todolistId, task.id)
                         }
                         // забираем данные в App , id и состояние isDone
-
-
                         return (
                             <>
                                 <li key={task.id} className={t.todolist__link}>
@@ -80,17 +97,11 @@ export const Todolist = (props: TodolistPropsType) => {
                 )}
             </ul>
             <div>
-                <button className={t.filterButton} onClick={() => {
-                    props.changeFilter('All')
-                }}>All
+                <button className={t.filterButton} onClick={allOnClickHandler}>All
                 </button>
-                <button className={t.filterButton} onClick={() => {
-                    props.changeFilter('Active')
-                }}>Active
+                <button className={t.filterButton} onClick={activeOnClickHandler}>Active
                 </button>
-                <button className={t.filterButton} onClick={() => {
-                    props.changeFilter('Completed')
-                }}>Completed
+                <button className={t.filterButton} onClick={completedOnClickHandler}>Completed
                 </button>
             </div>
         </div>
