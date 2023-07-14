@@ -42,6 +42,10 @@ export const Todolist = (props: TodolistPropsType) => {
     //         addTaskHandler()
     //     }
     // }
+
+    const addTitleTask = (title:string) => {
+        props.addTask(props.todolistId, title)
+    }
     //Забираем id и состояние такси в основную компоненту
     const onCheckedHandler = (tId: string, isDone: boolean) => {
         props.taskChecked(props.todolistId, tId, isDone)
@@ -70,9 +74,7 @@ export const Todolist = (props: TodolistPropsType) => {
             {/*</div>*/}
 
 
-            <AddItemForm todolistId={props.todolistId} addItem={props.addTask}/>
-
-
+            <AddItemForm todolistId={props.todolistId} addItem={addTitleTask}/>
             <ul className={t.todolist__list}>
                 {props.tasks.map(
                     (task) => {

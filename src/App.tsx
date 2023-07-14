@@ -66,11 +66,6 @@ function App() {
 
     //local state for filter
     // let [filter, setFilter] = useState<FilterType>('All')
-    const deleteTask = (todolistId: string, taskId: string) => {
-        // setTasks(tasks.filter(t => t.id !== idTask))
-        setTasks({...tasks, [todolistId]: tasks[todolistId].filter(d => d.id !== taskId)})
-
-    }
 
     // let tasksForTodolist = tasks
     // let filterTasks = () => {
@@ -87,20 +82,31 @@ function App() {
     // if (filter === 'Completed') {
     //     tasksForTodolist = tasks.filter(t => t.isDone)
     // }
+    //Работа с тудулистами
+    const addTodolist = (title:string) => {
+        let newTodolistId = v1()
+        setTodolist([{id:newTodolistId, title: title, filter:'All'}, ...todolist])
+        setTasks({...tasks, [newTodolistId]: []})
+    }
 
-    let changeFilter = (todolistId: string, value: FilterType) => {
+    //работа с тасками
+
+    const changeFilter = (todolistId: string, value: FilterType) => {
         // setFilter(value)
         setTodolist(todolist.map
         (filtered => filtered.id === todolistId ? {...filtered, filter: value} : filtered))
     }
-
-    let addTask = (todolistId: string, newTitle: string) => {
+    const addTask = (todolistId: string, newTitle: string) => {
         // let newTask = [{id: v1(), title: newTitle, isDone: false}, ...tasks]
         // setTasks(newTask)
         let newTask = {id: v1(), title: newTitle, isDone: false}
         setTasks({...tasks, [todolistId]: [newTask, ...tasks[todolistId]]})
     }
+    const deleteTask = (todolistId: string, taskId: string) => {
+        // setTasks(tasks.filter(t => t.id !== idTask))
+        setTasks({...tasks, [todolistId]: tasks[todolistId].filter(d => d.id !== taskId)})
 
+    }
     const taskChecked = (todolistId: string, idTask: string, isDone: boolean) => {
         // setTasks(tasks.map( t => t.id === idTask ? {...t, isDone: isDone}: t))
         setTasks({...tasks,[todolistId]: tasks[todolistId].map(checked => checked.id === idTask ? {
@@ -113,7 +119,7 @@ function App() {
         <div className="app">
 
             <div className={t.todolist_add}>
-                {/*<AddItemForm/>*/}
+                <AddItemForm addItem={addTodolist} />
             </div>
             <div className={t.app__wrapper}>
                 {todolist.map((mapTodolist) => {

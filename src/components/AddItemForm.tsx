@@ -1,10 +1,11 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import t from '../App.module.css'
+import {v1} from "uuid";
 
 
 type AddItemFormPropsType = {
-    todolistId: string
-    addItem: (todolistId:string, title:string) => void
+    todolistId?: string | undefined
+    addItem: (title:string) => void
 }
 
 export const AddItemForm = (props:AddItemFormPropsType) => {
@@ -21,8 +22,8 @@ export const AddItemForm = (props:AddItemFormPropsType) => {
             setError('Заполните поле ввода!')
             return
         }
-        props.addItem(props.todolistId, title.trim())
-        setTitle('')
+            props.addItem(title.trim())
+            setTitle('')
     }
 
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
