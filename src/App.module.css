@@ -1,98 +1,106 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+/*@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');*/
 
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Montserrat, sans-serif;
-}
+/** {*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*    box-sizing: border-box;*/
+/*    font-family: Montserrat, sans-serif;*/
+/*}*/
 
-.app__wrapper {
-    display: flex;
-    flex-direction: row;
-}
+/*.error {*/
+/*    color:red;*/
+/*}*/
 
-.todolist {
-    padding: 10px;
-}
+/*.app__wrapper {*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*}*/
 
-.todolist_add{
-    margin: 10px;
-}
+/*.todolist {*/
+/*    padding: 10px;*/
+/*}*/
 
-.todolist__error{
-    height: 20px;
-    color: red;
-}
+/*.todolist_add{*/
+/*    margin: 10px;*/
+/*}*/
 
-.todolist__inputField{
-    width: 200px;
-    margin-bottom: 5px;
-    position: relative;
+/*.todolist__error{*/
+/*    height: 20px;*/
+/*    color: red;*/
+/*}*/
 
-}
+/*.todolist__inputField{*/
+/*    width: 200px;*/
+/*    margin-bottom: 5px;*/
+/*    position: relative;*/
 
-.inputField__input{
-    padding: 3px 5px;
+/*}*/
+
+/*.inputField__input{*/
+/*    padding: 3px 5px;*/
 
 
-}
+/*}*/
 
-.inputField__button{
-    position: absolute;
-    top: 50%;
-    right: 0;
-    transform: translate(-50%, -50%);
-    width: 15px;
-    height: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+/*.inputField__button{*/
+/*    position: absolute;*/
+/*    top: 50%;*/
+/*    right: 0;*/
+/*    transform: translate(-50%, -50%);*/
+/*    width: 15px;*/
+/*    height: 15px;*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*}*/
 
-.todolist__list {
-    margin-bottom: 20px;
+/*.todolist__list {*/
+/*    margin-bottom: 20px;*/
 
-}
+/*}*/
 
-.todolist__link {
-    width: 200px;
-    margin-bottom: 5px;
-    position: relative;
-    list-style: none;
-}
-.todolist__checkbox{
-    margin-right: 5px;
-}
-.todolist__link__button {
-    position: absolute;
-    top: 50%;
-    right: 0;
-    transform: translate(-50%, -50%);
-    width: 15px;
-    height: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+/*.todolist__link {*/
+/*    width: 200px;*/
+/*    margin-bottom: 5px;*/
+/*    position: relative;*/
+/*    list-style: none;*/
+/*}*/
+/*.todolist__checkbox{*/
+/*    margin-right: 5px;*/
+/*}*/
+/*.todolist__link__button {*/
+/*    position: absolute;*/
+/*    top: 50%;*/
+/*    right: 0;*/
+/*    transform: translate(-50%, -50%);*/
+/*    width: 15px;*/
+/*    height: 15px;*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*}*/
 
-.filterButton {
-    font-weight: 600;
-    padding: 3px 10px;
-    margin: 2px;
-    outline: none;
-    border: 1px solid #c3c3c3;
-    transition: 1s;
-}
+/*.todolist__link__button:hover {*/
+/*    opacity: 0.5;*/
+/*}*/
 
-.filterButton:hover {
-    background-color: #c4c4c4;
-}
+/*.filterButton {*/
+/*    font-weight: 600;*/
+/*    padding: 3px 10px;*/
+/*    margin: 2px;*/
+/*    outline: none;*/
+/*    border: 1px solid #c3c3c3;*/
+/*    transition: 1s;*/
+/*}*/
 
-{/* кнопка добавления тудулиста*/}
-.add__button {
-    font-weight: 600;
-    padding: 3px 10px;
-    margin-left: 10px;
-}
+/*.filterButton:hover {*/
+/*    background-color: #c4c4c4;*/
+/*}*/
+
+/*{!* кнопка добавления тудулиста*!}*/
+/*.add__button {*/
+/*    font-weight: 600;*/
+/*    padding: 3px 10px;*/
+/*    margin-left: 10px;*/
+/*}*/

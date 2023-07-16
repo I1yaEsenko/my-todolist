@@ -1,50 +1,69 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import t from '../App.module.css'
 import {v1} from "uuid";
+import {Button, IconButton, TextField} from "@mui/material";
+import {AddBox} from "@mui/icons-material";
 
 
 type AddItemFormPropsType = {
-    todolistId?: string | undefined
-    addItem: (title:string) => void
+  todolistId?: string | undefined
+  addItem: (title: string) => void
 }
 
-export const AddItemForm = (props:AddItemFormPropsType) => {
+export const AddItemForm = (props: AddItemFormPropsType) => {
 
-    let [title, setTitle] = useState('')
-    const [error, setError] = useState<string>('')
-    const titleOnChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.currentTarget.value)
-        setError('')
+  let [title, setTitle] = useState('')
+  const [error, setError] = useState<string>('')
+  const titleOnChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.currentTarget.value)
+    setError('')
+  }
+
+  const addItemFormHandler = () => {
+    if (title.trim() === '') {
+      setError('Заполните поле ввода!')
+      return
     }
+    props.addItem(title.trim())
+    setTitle('')
+  }
 
-    const addItemFormHandler = () => {
-        if (title.trim() === '') {
-            setError('Заполните поле ввода!')
-            return
-        }
-            props.addItem(title.trim())
-            setTitle('')
+  const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+    setError('')
+    if (e.keyCode === 13) {
+      addItemFormHandler()
     }
+  }
 
-    const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        setError('')
-        if (e.keyCode === 13) {
-            addItemFormHandler()
-        }
-    }
+  return (
+    <>
+      {/*<input className={t.inputField__input}*/}
+      {/*       value={title}*/}
+      {/*       onChange={titleOnChangeHandler}*/}
+      {/*       onKeyDown={onKeyPressHandler}/>*/}
+      <TextField variant={"outlined"}
+                 value={title}
+                 onChange={titleOnChangeHandler}
+                 onKeyDown={onKeyPressHandler}
+                 error={!!error} //ошибка
+                 label='Enter title' //placeholder для инпута
+                 helperText={error}//сообщение об ошибке
+      />
 
-    return (
-        <>
-            <input  className={t.inputField__input}
-                    value={title}
-                    onChange={titleOnChangeHandler}
-                    onKeyDown={onKeyPressHandler}/>
-            <button className={t.add__button}
-                    onClick={addItemFormHandler}>Add</button>
-            <div className={t.todolist__error}>
-                {error && <div className={t.todolist__error_text}>{error}</div>}
-            </div>
-        </>
-    );
+      {/*<button className={t.add__button}*/}
+      {/*        onClick={addItemFormHandler}>Add</button>*/}
+      {/*<Button variant={"contained"} onClick={addItemFormHandler}>Add</Button>*/}
+      <IconButton
+        color = 'primary'
+        onClick={addItemFormHandler}
+      >
+
+      <AddBox/>
+      </IconButton>
+      {/*<div className={t.todolist__error}>*/}
+      {/*  {error && <div className={t.todolist__error_text}>{error}</div>}*/}
+      {/*</div>*/}
+    </>
+  );
 };
 
