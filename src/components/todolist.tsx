@@ -15,6 +15,7 @@ export type TodolistPropsType = {
     addTask: (todolistId:string, newTitle: string) => void
     taskChecked: (todolistId:string, idTask: string, isDone: boolean) => void
     filter: string
+    taskTitleChange: (todolistId:string, idTask: string, title:string) => void
 }
 
 export const Todolist = (props: TodolistPropsType) => {
@@ -61,6 +62,9 @@ export const Todolist = (props: TodolistPropsType) => {
     const completedOnClickHandler = () => {
         props.changeFilter(props.todolistId,'Completed')
     }
+    const onChangeTitleHandler = (tId:string, title:string) => {
+        props.taskTitleChange(props.todolistId, tId, title)
+    }
     return (
         <div className={t.todolist}>
             <h3>{props.title}</h3>
@@ -90,7 +94,7 @@ export const Todolist = (props: TodolistPropsType) => {
                                     <Checkbox isDone={task.isDone} callback={(isDone) => {
                                         onCheckedHandler(task.id, isDone)
                                     }}/>
-                                    <EditableSpan title={task.title} onChange={addTitleTask}/>
+                                    <EditableSpan title={task.title} onChange={(title) => {onChangeTitleHandler(task.id, title)}}/>
                                     <button onClick={onDeleteHandler} className={t.todolist__link__button}>x</button>
                                 </li>
                             </>

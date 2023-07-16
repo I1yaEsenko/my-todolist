@@ -114,6 +114,12 @@ function App() {
         })
     }
 
+    const taskTitleChange = (todolistId: string, idTask: string, title:string) => {
+        setTasks({...tasks,[todolistId]: tasks[todolistId].map(checked => checked.id === idTask ? {
+                ...checked, title: title} : checked)
+        })
+    }
+
     return (
         // отрисовка тудулистов
         <div className="app">
@@ -145,6 +151,7 @@ function App() {
                             addTask={addTask}
                             taskChecked={taskChecked}
                             filter={mapTodolist.filter}
+                            taskTitleChange={taskTitleChange}
                         />
                     )
                 })}
