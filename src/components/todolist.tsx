@@ -16,6 +16,7 @@ export type TodolistPropsType = {
     taskChecked: (todolistId:string, idTask: string, isDone: boolean) => void
     filter: string
     taskTitleChange: (todolistId:string, idTask: string, title:string) => void
+    todolistTitleChange: (todolistId:string, title:string) => void
 }
 
 export const Todolist = (props: TodolistPropsType) => {
@@ -65,9 +66,12 @@ export const Todolist = (props: TodolistPropsType) => {
     const onChangeTitleHandler = (tId:string, title:string) => {
         props.taskTitleChange(props.todolistId, tId, title)
     }
+    const onChangeTodolistTitleHandler  =(title:string) => {
+        props.todolistTitleChange(props.todolistId, title)
+    }
     return (
         <div className={t.todolist}>
-            <h3>{props.title}</h3>
+            <h3><EditableSpan title={props.title} onChange={onChangeTodolistTitleHandler} /></h3>
 
             {/*<div className={t.todolist__inputField}>*/}
             {/*    <input className={t.inputField__input} value={title} onKeyDown={onKeyPressHandler}*/}

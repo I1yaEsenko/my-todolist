@@ -21,8 +21,9 @@ export type TodolistType = {
 }
 
 export type TaskStateType = {
-    [key:string]: Array<TasksType>
+    [key: string]: Array<TasksType>
 }
+
 function App() {
 
 
@@ -83,12 +84,14 @@ function App() {
     //     tasksForTodolist = tasks.filter(t => t.isDone)
     // }
     //Работа с тудулистами
-    const addTodolist = (title:string) => {
+    const addTodolist = (title: string) => {
         let newTodolistId = v1()
-        setTodolist([{id:newTodolistId, title: title, filter:'All'}, ...todolist])
+        setTodolist([{id: newTodolistId, title: title, filter: 'All'}, ...todolist])
         setTasks({...tasks, [newTodolistId]: []})
     }
-
+    const todolistTitleChange = (todolistId: string, title: string) => {
+        setTodolist(todolist.map(f => f.id === todolistId ? {...f, title: title} : f))
+    }
     //работа с тасками
 
     const changeFilter = (todolistId: string, value: FilterType) => {
@@ -109,14 +112,18 @@ function App() {
     }
     const taskChecked = (todolistId: string, idTask: string, isDone: boolean) => {
         // setTasks(tasks.map( t => t.id === idTask ? {...t, isDone: isDone}: t))
-        setTasks({...tasks,[todolistId]: tasks[todolistId].map(checked => checked.id === idTask ? {
-                ...checked, isDone: isDone} : checked)
+        setTasks({
+            ...tasks, [todolistId]: tasks[todolistId].map(checked => checked.id === idTask ? {
+                ...checked, isDone: isDone
+            } : checked)
         })
     }
 
-    const taskTitleChange = (todolistId: string, idTask: string, title:string) => {
-        setTasks({...tasks,[todolistId]: tasks[todolistId].map(checked => checked.id === idTask ? {
-                ...checked, title: title} : checked)
+    const taskTitleChange = (todolistId: string, idTask: string, title: string) => {
+        setTasks({
+            ...tasks, [todolistId]: tasks[todolistId].map(checked => checked.id === idTask ? {
+                ...checked, title: title
+            } : checked)
         })
     }
 
@@ -125,7 +132,7 @@ function App() {
         <div className="app">
 
             <div className={t.todolist_add}>
-                <AddItemForm addItem={addTodolist} />
+                <AddItemForm addItem={addTodolist}/>
             </div>
             <div className={t.app__wrapper}>
                 {todolist.map((mapTodolist) => {
@@ -152,6 +159,7 @@ function App() {
                             taskChecked={taskChecked}
                             filter={mapTodolist.filter}
                             taskTitleChange={taskTitleChange}
+                            todolistTitleChange={todolistTitleChange}
                         />
                     )
                 })}
