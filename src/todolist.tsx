@@ -6,6 +6,7 @@ import {EditableSpan} from "./components/EditableSpan";
 import {Button, IconButton} from "@mui/material";
 import {Delete} from '@mui/icons-material'
 import {CheckboxComponent} from "./components/CheckboxComponent";
+import {SuperCheckbox} from "./components/SuperCheckbox";
 
 
 export type TodolistPropsType = {
@@ -106,9 +107,10 @@ export const Todolist = (props: TodolistPropsType) => {
             return (
               <>
                 <div key={task.id} className={t.todolist__link}>
-                  <CheckboxComponent isDone={task.isDone} callback={(isDone) => {
-                    onCheckedHandler(task.id, isDone)
-                  }}/>
+                  {/*<CheckboxComponent isDone={task.isDone} callback={(isDone) => {*/}
+                  {/*  onCheckedHandler(task.id, isDone)*/}
+                  {/*}}/>*/}
+                  <SuperCheckbox isDone={task.isDone} callback={(isDone)=>{onCheckedHandler(task.id, isDone)}}/>
                   <EditableSpan title={task.title} onChange={(title) => {
                     onChangeTitleHandler(task.id, title)
                   }}/>
