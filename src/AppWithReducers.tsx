@@ -10,9 +10,9 @@ import {
    changeTodolistFilterAC,
    changeTodolistTitleAC,
    removeTodolistAC,
-   todolistReducer
+   todolistReducer, TodolistReducerType
 } from "./state/todolist-reducer";
-import {addTaskAC, removeTaskAC, taskChangeCheckedAC, taskChangeTitleAC, taskReducer} from "./state/task-reducer";
+import {addTaskAC, removeTaskAC, taskChangeCheckedAC, taskChangeTitleAC, tasksReducer} from "./state/tasks-reducer";
 
 export type TasksType = {
    id: string
@@ -28,9 +28,10 @@ export type TodolistType = {
    filter: FilterType
 }
 
-export type TaskStateType = {
+export type TasksStateType = {
    [key: string]: Array<TasksType>
 }
+// type TodoListReducer = (state: Array<TodolistType>, action: TodolistReducerType) => Array<TodolistType>;
 
 export const AppWithReducers = () => {
 
@@ -42,7 +43,7 @@ export const AppWithReducers = () => {
       {id: todolistId2, title: 'What to do', filter: 'All'},
    ])
 
-   let [tasks, dispatchTask] = useReducer(taskReducer,{
+   let [tasks, dispatchTask] = useReducer(tasksReducer,{
         [todolistId1]: [
            {id: v1(), title: "HTML&CSS", isDone: true},
            {id: v1(), title: "JS", isDone: true},
@@ -53,7 +54,7 @@ export const AppWithReducers = () => {
         ],
         [todolistId2]: [
            {id: v1(), title: "Homework", isDone: true},
-           {id: v1(), title: "Codewars", isDone: false},
+           {id: v1(), title: "Code wars", isDone: false},
            {id: v1(), title: "Do exams", isDone: false},
            {id: v1(), title: "Running", isDone: true},
            {id: v1(), title: "Working", isDone: false},
@@ -62,11 +63,10 @@ export const AppWithReducers = () => {
    )
    //Работа с тудулистом <-----------------------------------------------------------------
    const addTodolist = (title: string) => {
-
       // setTodolist([{id: newTodolistId, title: title, filter: 'All'}, ...todolist])
       // setTasks({...tasks, [newTodolistId]: []})
       dispatchTodolist(addTodolistAC(title))
-      dispatchTask(addTodolistAC(title)) 
+      dispatchTask(addTodolistAC(title))
    }
    const todolistTitleChange = (todolistId: string, title: string) => {
       // setTodolist(todolist.map(f => f.id === todolistId ? {...f, title: title} : f))
@@ -77,6 +77,7 @@ export const AppWithReducers = () => {
       // delete tasks[todolistId]
       // setTasks({...tasks})
       dispatchTodolist(removeTodolistAC(todolistId))
+      dispatchTask(removeTodolistAC(todolistId))
    }
    const changeFilter = (todolistId: string, value: FilterType) => {
       // // setFilter(value)
@@ -84,7 +85,7 @@ export const AppWithReducers = () => {
       // (filtered => filtered.id === todolistId ? {...filtered, filter: value} : filtered))
       dispatchTodolist(changeTodolistFilterAC(todolistId, value))
    }
-
+   console.log(todolist)
    //Работа с тасками <-----------------------------------------------------------------
 
    const addTask = (todolistId: string, newTitle: string) => {
@@ -93,6 +94,7 @@ export const AppWithReducers = () => {
       // let newTask = {id: v1(), title: newTitle, isDone: false}
       // setTasks({...tasks, [todolistId]: [newTask, ...tasks[todolistId]]})
         dispatchTask(addTaskAC(todolistId, newTitle))
+
    }
    const deleteTask = (todolistId: string, taskId: string) => {
       // setTasks(tasks.filter(t => t.id !== idTask))

@@ -2,13 +2,9 @@ import React, {useReducer, useState} from 'react';
 import './App.module.css';
 import {Todolist} from "./todolist";
 import {v1} from "uuid";
-import t from "./App.module.css";
 import {AddItemForm} from "./components/AddItemForm";
 import {AppBar, Button, Container, Grid, Menu, Paper, Toolbar, Typography} from "@mui/material";
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import Header from "./components/Header";
-import {addTodolistAC, todolistReducer} from "./state/todolist-reducer";
 
 export type TasksType = {
    id: string

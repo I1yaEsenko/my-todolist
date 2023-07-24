@@ -29,7 +29,6 @@ test('correct todolist should be added', () => {
    let todolistId2 = v1()
 
    let newTodolistTitle = 'New Todolist'
-   let newTodolistId = v1()
 
    const startState: TodolistType[] = [
       {id: todolistId1, title: 'What to learn', filter: 'All'},
@@ -37,7 +36,7 @@ test('correct todolist should be added', () => {
    ]
 
    // const endState = todolistsReducer(startState, {type: 'ADD-TODOLIST', title: newTodolistTitle})
-   const endState = todolistReducer(startState, addTodolistAC(newTodolistId, newTodolistTitle))
+   const endState = todolistReducer(startState, addTodolistAC(newTodolistTitle))
    expect(endState.length).toBe(3)
    expect(endState[2].title).toBe(newTodolistTitle)
 })

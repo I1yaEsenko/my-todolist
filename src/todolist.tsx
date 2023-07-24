@@ -1,12 +1,11 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import {FilterType, TasksType} from "./App";
+import {FilterType, TasksType} from "./AppWithReducers";
 import t from './App.module.css'
 import {AddItemForm} from "./components/AddItemForm";
 import {EditableSpan} from "./components/EditableSpan";
 import {Button, IconButton} from "@mui/material";
 import {Delete} from '@mui/icons-material'
 import {CheckboxComponent} from "./components/CheckboxComponent";
-import {SuperCheckbox} from "./components/SuperCheckbox";
 
 
 export type TodolistPropsType = {
