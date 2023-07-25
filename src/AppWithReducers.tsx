@@ -63,10 +63,9 @@ export function AppWithReducers() {
    )
    //Работа с тудулистом <-----------------------------------------------------------------
    const addTodolist = (title: string) => {
-      // setTodolist([{id: newTodolistId, title: title, filter: 'All'}, ...todolist])
-      // setTasks({...tasks, [newTodolistId]: []})
-      dispatchToTodolist(addTodolistAC(title))
-      dispatchToTask(addTodolistAC(title))
+      const action = addTodolistAC(title)
+      dispatchToTodolist(action)
+      dispatchToTask(action)
    }
 
    const todolistTitleChange = (todolistId: string, title: string) => {
@@ -119,8 +118,8 @@ export function AppWithReducers() {
       dispatchToTask(taskChangeTitleAC(todolistId, idTask, title))
    }
 
-   console.log(todolist)
-   console.log(tasks)
+   console.log('Массив тудулистов ' +  todolist)
+   console.log('Массив тасок ' + tasks)
    return (
      // отрисовка тудулистов
      <div className="app">
