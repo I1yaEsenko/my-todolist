@@ -9,7 +9,6 @@ import {CheckboxComponent} from "./components/CheckboxComponent";
 
 
 export type TodolistPropsType = {
-
   todolistId: string
   title: string
   tasks: Array<TasksType>
@@ -95,8 +94,8 @@ export const Todolist = (props: TodolistPropsType) => {
 
 
       <AddItemForm todolistId={props.todolistId} addItem={addTitleTask}/>
-      <ul className={t.todolist__list}>
-        {props.tasks.map(
+      <div className={t.todolist__list}>
+        {props.tasks && props.tasks.map(
           (task) => {
 
             const onDeleteHandler = () => {
@@ -105,7 +104,7 @@ export const Todolist = (props: TodolistPropsType) => {
             // забираем данные в App , id и состояние isDone
             return (
               <>
-                <div key={task.id} className={t.todolist__link}>
+                <li key={task.id} className={t.todolist__link}>
                   <CheckboxComponent isDone={task.isDone} callback={(isDone) => {
                     onCheckedHandler(task.id, isDone)
                   }}/>
@@ -117,13 +116,13 @@ export const Todolist = (props: TodolistPropsType) => {
                   <IconButton aria-label={'delete'} size={'small'} onClick={onDeleteHandler}>
                     <Delete/>
                   </IconButton>
-                </div>
+                </li>
               </>
             )
 
           }
         )}
-      </ul>
+      </div>
       <div>
         {/*Кнопки стилизованные Material UI*/}
         {/*<Button variant="contained" onClick={allOnClickHandler } >All</Button>*/}
