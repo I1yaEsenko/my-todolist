@@ -1,5 +1,5 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import {FilterType, TasksType} from "./AppWithReducers";
+import {FilterType, TasksType} from "./AppWithRedux";
 import t from './App.module.css'
 import {AddItemForm} from "./components/AddItemForm";
 import {EditableSpan} from "./components/EditableSpan";

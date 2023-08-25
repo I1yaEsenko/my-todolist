@@ -1,8 +1,10 @@
-import {TasksStateType, TasksType} from "../AppWithReducers";
+import {TasksStateType, TasksType} from "../AppWithRedux";
 import {v1} from "uuid";
 import {AddTodolistACType, RemoveTodolistACType} from "./todolist-reducer";
 
-export const tasksReducer = (state: TasksStateType, action: TaskReducerType) => {
+const initialState: TasksStateType = {}
+
+export const tasksReducer = (state: TasksStateType = initialState, action: TaskReducerType) => {
    switch (action.type) {
       case "ADD-TASK":
          // let newTask : TasksType =
@@ -34,6 +36,7 @@ export const tasksReducer = (state: TasksStateType, action: TaskReducerType) => 
          let {[action.payload.id]: [], ...rest} = state
          return rest
       }
+      default:
          return state
    }
 
