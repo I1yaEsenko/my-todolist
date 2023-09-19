@@ -8,9 +8,11 @@ import {
 import { v1 } from 'uuid'
 import {FilterType, TodolistType} from "../AppWithRedux";
 
+
 let todolistId1: string
 let todolistId2: string
 let startState: Array<TodolistType>
+
 
 beforeEach( () => {
    todolistId1 = v1()
@@ -19,6 +21,7 @@ beforeEach( () => {
    startState = [
       {id: todolistId1, title: 'What to learn', filter: 'All'},
       {id: todolistId2, title: 'What to buy', filter: 'All'}
+
    ]
   }
 )
@@ -55,6 +58,7 @@ test('correct todolist should change its name', () => {
 test('correct filter of todolist should be changed', () => {
 
    let newFilter: FilterType = 'Completed'
+
 
    const action = {
       type: 'CHANGE-TODOLIST-FILTER',

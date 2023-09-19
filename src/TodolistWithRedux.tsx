@@ -1,21 +1,19 @@
-import React from 'react';
-import {TasksType} from "./AppWithRedux";
-import t from './App.module.css'
-import {AddItemForm} from "./components/AddItemForm";
+import {AppRootStateType} from "./state/store";
+import {useDispatch, useSelector} from "react-redux";
+import { addTaskAC, removeTaskAC, taskChangeCheckedAC, taskChangeTitleAC } from "./state/tasks-reducer";
+import { changeTodolistFilterAC, changeTodolistTitleAC, removeTodolistAC } from "./state/todolist-reducer";
+import {TasksType, TodolistType } from "./AppWithRedux";
 import {EditableSpan} from "./components/EditableSpan";
 import {Button, IconButton} from "@mui/material";
-import {Delete} from '@mui/icons-material'
+import {Delete} from "@mui/icons-material";
+import {AddItemForm} from "./components/AddItemForm";
 import {CheckboxComponent} from "./components/CheckboxComponent";
-import {TodolistType} from "./AppWithRedux";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "./state/store";
-import {addTaskAC, removeTaskAC, taskChangeCheckedAC, taskChangeTitleAC} from "./state/tasks-reducer";
-import {changeTodolistFilterAC, changeTodolistTitleAC, removeTodolistAC} from "./state/todolist-reducer";
-
+import t from './App.module.css'
 
 export type TodolistPropsType = {
    todolist: TodolistType
 }
+
 
 export const TodolistWithRedux = ({todolist}: TodolistPropsType) => {
 
@@ -116,5 +114,6 @@ export const TodolistWithRedux = ({todolist}: TodolistPropsType) => {
      </div>
 
    );
+
 };
 

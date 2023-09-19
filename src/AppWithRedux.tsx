@@ -4,15 +4,14 @@ import {v1} from "uuid";
 import {AddItemForm} from "./components/AddItemForm";
 import {Container, Grid, Paper} from "@mui/material";
 import Header from "./components/Header";
+
 import {
-   addTodolistAC,
-   changeTodolistFilterAC,
-   changeTodolistTitleAC,
-   removeTodolistAC,
+   addTodolistAC, changeTodolistFilterAC, changeTodolistTitleAC, removeTodolistAC,
+
 } from "./state/todolist-reducer";
-import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./state/store";
 import {TodolistWithRedux} from "./TodolistWithRedux";
+import {useDispatch, useSelector} from "react-redux";
 
 export type TasksType = {
    id: string
@@ -37,9 +36,9 @@ export function AppWithRedux() {
    let todolistId1 = v1()
    let todolistId2 = v1()
 
-
    let todolists = useSelector<AppRootStateType, Array<TodolistType>>(state => state.todolists)
    const dispatch = useDispatch()
+
    //Работа с тудулистом <-----------------------------------------------------------------
    const addTodolist = (title: string) => {
       const action = addTodolistAC(title)
@@ -47,26 +46,16 @@ export function AppWithRedux() {
    }
 
    const todolistTitleChange = (todolistId: string, title: string) => {
-      // setTodolist(todolist.map(f => f.id === todolistId ? {...f, title: title} : f))
-      // dispatchToTodolist(changeTodolistTitleAC(todolistId, title))
       dispatch(changeTodolistTitleAC(todolistId, title))
    }
    const deleteTodolist = (todolistId: string) => {
-      // setTodolist(todolist.filter(filteredTodolist => filteredTodolist.id !== todolistId))
-      // delete tasks[todolistId]
-      // setTasks({...tasks})
-      // dispatchToTodolist(removeTodolistAC(todolistId))
-      // dispatchToTask(removeTodolistAC(todolistId))
       dispatch(removeTodolistAC(todolistId))
    }
    const changeFilter = (todolistId: string, value: FilterType) => {
-      // // setFilter(value)
-      // setTodolist(todolist.map
-      // (filtered => filtered.id === todolistId ? {...filtered, filter: value} : filtered))
-      // dispatchToTodolist(changeTodolistFilterAC(todolistId, value))
       dispatch(changeTodolistFilterAC(todolistId, value))
    }
 
+   //Работа с тасками <-----------------------------------------------------------------
    return (
      // отрисовка тудулистов
      <div className="app">
@@ -76,12 +65,12 @@ export function AppWithRedux() {
               <AddItemForm addItem={addTodolist}/>
            </Grid>
            <Grid container spacing={4}>
-              {todolists.map((el) => {
+              {todolists.map((mapping) => {
                  return (
-                   <Grid item key={el.id}>
+                   <Grid key={mapping.id} item>
                       <Paper style={{padding: '10px'}} elevation={5}>
                          <TodolistWithRedux
-                           todolist={el}
+                         todolist={mapping}
                          />
                       </Paper>
                    </Grid>
