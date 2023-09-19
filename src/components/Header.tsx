@@ -2,7 +2,6 @@ import React from 'react';
 import {AppBar, Button, Menu, Toolbar, Typography} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import {AddItemForm} from "./AddItemForm";
 
 export const Header = () => {
 

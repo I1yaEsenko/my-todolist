@@ -1,5 +1,5 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import {FilterType, TasksType} from "./AppWithReducers";
+import {FilterType, TasksType} from "./AppWithRedux";
 import t from './App.module.css'
 import {AddItemForm} from "./components/AddItemForm";
 import {EditableSpan} from "./components/EditableSpan";
@@ -76,6 +76,16 @@ export const Todolist = (props: TodolistPropsType) => {
   const removeTodolistHandler = () => {
     props.deleteTodolist(props.todolistId)
   }
+
+  // let tasksForTodolist = tasks[mapping.id]
+  // if (mapping.filter === 'Active') {
+  //   tasksForTodolist = tasks[mapping.id].filter(t => !t.isDone)
+  // }
+  // if (mapping.filter === 'Completed') {
+  //   tasksForTodolist = tasks[mapping.id].filter(t => t.isDone)
+  // }
+
+
   return (
     <div className={t.todolist}>
       <h3><EditableSpan title={props.title} onChange={onChangeTodolistTitleHandler}/>
