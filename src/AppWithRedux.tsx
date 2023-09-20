@@ -1,4 +1,4 @@
-import React, {useReducer, useState} from 'react';
+import React, {useCallback, useReducer, useState} from 'react';
 import './App.module.css';
 import {v1} from "uuid";
 import {AddItemForm} from "./components/AddItemForm";
@@ -40,20 +40,20 @@ export function AppWithRedux() {
    const dispatch = useDispatch()
 
    //Работа с тудулистом <-----------------------------------------------------------------
-   const addTodolist = (title: string) => {
+   const addTodolist = useCallback((title: string) => {
       const action = addTodolistAC(title)
       dispatch(action)
-   }
+   }, [dispatch])
 
-   const todolistTitleChange = (todolistId: string, title: string) => {
-      dispatch(changeTodolistTitleAC(todolistId, title))
-   }
-   const deleteTodolist = (todolistId: string) => {
-      dispatch(removeTodolistAC(todolistId))
-   }
-   const changeFilter = (todolistId: string, value: FilterType) => {
-      dispatch(changeTodolistFilterAC(todolistId, value))
-   }
+   // const todolistTitleChange = (todolistId: string, title: string) => {
+   //    dispatch(changeTodolistTitleAC(todolistId, title))
+   // }
+   // const deleteTodolist = (todolistId: string) => {
+   //    dispatch(removeTodolistAC(todolistId))
+   // }
+   // const changeFilter = (todolistId: string, value: FilterType) => {
+   //    dispatch(changeTodolistFilterAC(todolistId, value))
+   // }
 
    //Работа с тасками <-----------------------------------------------------------------
    return (

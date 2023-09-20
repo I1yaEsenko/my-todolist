@@ -1,14 +1,16 @@
 import {AppRootStateType} from "./state/store";
 import {useDispatch, useSelector} from "react-redux";
-import { addTaskAC, removeTaskAC, taskChangeCheckedAC, taskChangeTitleAC } from "./state/tasks-reducer";
-import { changeTodolistFilterAC, changeTodolistTitleAC, removeTodolistAC } from "./state/todolist-reducer";
-import {TasksType, TodolistType } from "./AppWithRedux";
+import {addTaskAC, removeTaskAC, taskChangeCheckedAC, taskChangeTitleAC} from "./state/tasks-reducer";
+import {changeTodolistFilterAC, changeTodolistTitleAC, removeTodolistAC} from "./state/todolist-reducer";
+import {TasksType, TodolistType} from "./AppWithRedux";
 import {EditableSpan} from "./components/EditableSpan";
 import {Button, IconButton} from "@mui/material";
 import {Delete} from "@mui/icons-material";
 import {AddItemForm} from "./components/AddItemForm";
 import {CheckboxComponent} from "./components/CheckboxComponent";
 import t from './App.module.css'
+import {useCallback, useMemo} from "react";
+import {TaskWithRedux} from "./components/TaskWithRedux";
 
 export type TodolistPropsType = {
    todolist: TodolistType
@@ -21,19 +23,14 @@ export const TodolistWithRedux = ({todolist}: TodolistPropsType) => {
 
    let tasks = useSelector<AppRootStateType, Array<TasksType>>(state => state.tasks[id])
    let dispatch = useDispatch()
-   //Работа с тасками <-----------------------------------------------------------------
 
-   const addTitleTask = (title: string) => {
+   const addTask = useCallback((title: string) => {
       dispatch(addTaskAC(id, title))
-   }
-   //Забираем id и состояние такси в основную компоненту
-   const onCheckedHandler = (tId: string, isDone: boolean) => {
-      // props.taskChecked(props.todolistId, tId, isDone)
-      dispatch(taskChangeCheckedAC(id, tId, isDone))
-   }
+   }, [dispatch])
+
    // Фильтрация по выполнению тасок
    const allOnClickHandler = () => {
-       dispatch(changeTodolistFilterAC(id, 'All'))
+      dispatch(changeTodolistFilterAC(id, 'All'))
    }
    const activeOnClickHandler = () => {
       dispatch(changeTodolistFilterAC(id, 'Active'))
@@ -41,16 +38,12 @@ export const TodolistWithRedux = ({todolist}: TodolistPropsType) => {
    const completedOnClickHandler = () => {
       dispatch(changeTodolistFilterAC(id, 'Completed'))
    }
-   const onChangeTitleHandler = (tId: string, title: string) => {
-      // props.taskTitleChange(props.todolistId, tId, title)
-      dispatch(taskChangeTitleAC(id, tId, title))
-   }
+
    const onChangeTodolistTitleHandler = (title: string) => {
       dispatch(changeTodolistTitleAC(id, title))
    }
 
    const removeTodolistHandler = () => {
-      // props.deleteTodolist(props.todolistId)
       dispatch(removeTodolistAC(id))
    }
 
@@ -67,30 +60,13 @@ export const TodolistWithRedux = ({todolist}: TodolistPropsType) => {
            <IconButton aria-label={'delete'} size={'small'} onClick={removeTodolistHandler}>
               <Delete/>
            </IconButton></h3>
-        <AddItemForm todolistId={id} addItem={addTitleTask}/>
+        <AddItemForm todolistId={id} addItem={addTask}/>
         <div className={t.todolist__list}>
            {tasks && tasks.map(
              (task) => {
-                const onDeleteHandler = () => {
-                   dispatch(removeTaskAC(id, task.id))
-                }
-                // забираем данные в App , id и состояние isDone
                 return (
-
-                     <li key={task.id} className={t.todolist__link}>
-                        <CheckboxComponent isDone={task.isDone} callback={(isDone) => {
-                           onCheckedHandler(task.id, isDone)
-                        }}/>
-                        <EditableSpan title={task.title} onChange={(title) => {
-                           onChangeTitleHandler(task.id, title)
-                        }}/>
-                        <IconButton aria-label={'delete'} size={'small'} onClick={onDeleteHandler}>
-                           <Delete/>
-                        </IconButton>
-                     </li>
-
+                  <TaskWithRedux key={task.id} task={task} todolistId={id}/>
                 )
-
              }
            )}
         </div>
